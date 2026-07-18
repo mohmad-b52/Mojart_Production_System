@@ -1,0 +1,19 @@
+{
+    "d": "video_101",
+    "ata": {
+        "_segment": "intro_scene",
+        "ted_duration_seconds": 5.0,
+        "ty": "medium"
+    },
+    "_targeting": {
+        "_description": "US Trend Video",
+        "type": "video",
+        "y_queries": ["nature", "cars"],
+        "ck_queries": [],
+        "elements": []
+    },
+    "_strategy": {
+        "red_sources": ["source1"],
+        "ck_asset_types": []
+    }
+}
