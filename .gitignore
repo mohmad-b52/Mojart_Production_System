@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+assets/**
+production/video/
+production/exports/
+.DS_Store

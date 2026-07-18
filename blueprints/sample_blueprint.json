@@ -8,7 +8,7 @@
     "_targeting": {
         "_description": "US Trend Video",
         "type": "video",
-        "y_queries": ["nature", "cars"],
+        "y_queries": ["sky", "cars"],
         "ck_queries": [],
         "elements": []
     },
