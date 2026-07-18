@@ -6,13 +6,16 @@ from modules.asset_organizer import AssetOrganizer
 from modules.audio_processor import AudioProcessor
 from modules.sequence_builder import SequenceBuilder
 
-# Pexels API Key
-PEXELS_API_KEY = "Xlddd6zhVaf9a8vTOSB33LxRgrgbsZzVAOWfjdJZyy0lSpd8sJETuBso"
+# 1. تحديد مسار المجلد الحالي ديناميكياً ليعمل على أي جهاز
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# 2. حماية مفتاح الـ API عبر قراءته من بيئة التشغيل مع الاحتفاظ بـ الـ Key الحالي كبديل محلي لحمايته من الحظر
+PEXELS_API_KEY = os.environ.get("PEXELS_API_KEY", "Xlddd6zhVaf9a8vTOSB33LxRgrgbsZzVAOWfjdJZyy0lSpd8sJETuBso")
 
 def main():
     try:
-        # 1. Parse the blueprint file from the new path
-        blueprint_path = "blueprints/sample_blueprint.json"
+        # 3. تعديل مسار الـ Blueprint ليعتمد على المسار الديناميكي
+        blueprint_path = os.path.join(PROJECT_ROOT, "blueprints", "sample_blueprint.json")
         blueprint = parse_blueprint(blueprint_path)
         print("[SUCCESS] Blueprint file read and parsed successfully!")
         
@@ -21,9 +24,11 @@ def main():
         # 2. Initialize System Modules
         collector = AssetCollector(pexels_api_key=PEXELS_API_KEY)
         downloader = AssetDownloader(output_dir="assets")
-        organizer = AssetOrganizer(base_dir="D:/MR/Mojart_Production_System")
-        audio_proc = AudioProcessor(base_dir="D:/MR/Mojart_Production_System")
-        seq_builder = SequenceBuilder(base_dir="D:/MR/Mojart_Production_System")
+        
+        # 4. استبدال المسار الثابت "D:/MR/..." بالمتغير الديناميكي PROJECT_ROOT
+        organizer = AssetOrganizer(base_dir=PROJECT_ROOT)
+        audio_proc = AudioProcessor(base_dir=PROJECT_ROOT)
+        seq_builder = SequenceBuilder(base_dir=PROJECT_ROOT)
         
         # 3. Extract search queries
         queries = collector.collect_queries(blueprint)
